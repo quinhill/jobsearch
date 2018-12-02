@@ -1,0 +1,9 @@
+.sign-out-button {
+  background: none;
+  border: none;
+  background-image: url('/icons8-shutdown-52.png');
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  margin-right: 10px;
+}

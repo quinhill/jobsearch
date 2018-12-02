@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ResearchForm from '../../containers/ResearchForm/ResearchForm';
 import SignOutButton from '../../containers/SignOut/SignOut';
-import { firebase, db } from '../../firebase';
-import { signIn, getCompanies } from '../../actions';
+import { firebase } from '../../firebase';
+import signInThunk from '../../thunks/signInThunk';
+import getCompaniesThunk from '../../thunks/getCompaniesThunk';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CompanyContainer from '../../containers/CompanyContainer/CompanyContainer';
@@ -15,20 +16,15 @@ class Home extends Component {
     const {
       user,
       signIn,
+      getCompanies,
       history
     } = this.props;
     if (!user.uid) {
       firebase.auth.onAuthStateChanged(async authUser => {
         if (authUser) {
           const { uid } = authUser;
-          const userQuery = await db.collection('users').doc(uid);
-          const user = await userQuery.get();
-          signIn(user.data())
-          const researchQuery = await db.collection('users').doc(uid).collection('research')
-          const companies = await researchQuery.get();
-          companies.docs.forEach(doc => {
-            
-          })
+          await signIn(uid)
+          await getCompanies(uid);
         } else {
           history.push('/signup');
         }
@@ -39,9 +35,15 @@ class Home extends Component {
   render() {
     return (
       <div className='home-container'>
-        <SignOutButton />
-        <ResearchForm />
-        <CompanyContainer />
+        <header>
+          <div></div>
+          <h1>Apply</h1>
+          <SignOutButton />
+        </header>
+        <div className='display-container'>
+          <ResearchForm />
+          <CompanyContainer />
+        </div>
       </div>
     )
   }
@@ -52,8 +54,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  signIn: user => dispatch(signIn(user)),
-  getCompanies: companies => dispatch(getCompanies(companies))
+  signIn: uid => dispatch(signInThunk(uid)),
+  getCompanies: uid => dispatch(getCompaniesThunk(uid))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

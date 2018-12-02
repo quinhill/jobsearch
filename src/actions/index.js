@@ -3,9 +3,9 @@ export const isLoading = bool => ({
   isLoading: bool
 });
 
-export const hasErrored = bool => ({
+export const hasErrored = error => ({
   type: 'HAS_ERRORED',
-  hasErrored: bool
+  error
 });
 
 export const signUp = user => ({
@@ -32,7 +32,7 @@ export const updateCompany = company => ({
   company
 });
 
-export const getCompanies = companies => ({
+export const getCompanies = company => ({
   type: 'GET_COMPANIES',
-  companies
+  company
 });

@@ -10,7 +10,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <header>jobSearch</header>
        <Switch>
          <Route exact path='/' component={Home} />
          <Route path='/signup' component={SignUp} />

@@ -15,13 +15,7 @@ class ResearchForm extends Component {
       product: '',
       reference: '',
       acquaintances: '',
-      id: null
     }
-  }
-
-  componentDidMount() {
-    const id = this.props.companies.length;
-    this.setState({ id });
   }
 
   changeInput = (event) => {
@@ -31,6 +25,7 @@ class ResearchForm extends Component {
 
   submitForm = async (event) => {
     event.preventDefault();
+    const { companies } = this.props;
     const {
       company,
       culture,
@@ -38,18 +33,18 @@ class ResearchForm extends Component {
       product,
       reference,
       acquaintances,
-      id
     } = this.state;
     const { uid, submitResearch } = this.props;
     await db.collection('users').doc(uid).collection('research').doc(company).set({
+      name: company,
       culture,
       mission,
       product,
       reference,
       acquaintances,
-      id
+      id: companies.length
     });
-    submitResearch(this.state);
+    submitResearch({ ...this.state, id: companies.length });
   }
 
   render() {
@@ -74,6 +69,7 @@ class ResearchForm extends Component {
             name='company'
             value={company}
             onChange={this.changeInput}
+            className='research-input'
             id='company'
           />
           <label htmlFor='culture'>culture</label>
@@ -81,6 +77,7 @@ class ResearchForm extends Component {
             name='culture'
             value={culture}
             onChange={this.changeInput}
+            className='research-input'
             id='culture'
           />
           <label htmlFor='mission'>mission</label>
@@ -88,6 +85,7 @@ class ResearchForm extends Component {
             name='mission'
             value={mission}
             onChange={this.changeInput}
+            className='research-input'
             id='mission'
           />
           <label htmlFor='product'>product</label>
@@ -95,6 +93,7 @@ class ResearchForm extends Component {
             name='product'
             value={product}
             onChange={this.changeInput}
+            className='research-input'
             id='product'
           />
           <label htmlFor='reference'>
@@ -104,6 +103,7 @@ class ResearchForm extends Component {
             name='reference'
             value={reference}
             onChange={this.changeInput}
+            className='research-input'
             id='reference'
           />
           <label htmlFor='acquaintances'>
@@ -113,10 +113,12 @@ class ResearchForm extends Component {
             name='acquaintances'
             value={acquaintances}
             onChange={this.changeInput}
+            className='research-input'
             id='acquaintances'
           />
           <button
             type='submit'
+            className='submit-button'
           >
             submit
           </button>

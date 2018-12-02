@@ -21,3 +21,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+src/APIKey.js
+
+src/jobsearch-8f1f2-firebase-adminsdk-n9tzr-d561f61c68.json

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { signOut } from '../../actions';
-
 import { auth } from '../../firebase';
+
+import './sign-out.css';
 
 export class SignOutButton extends Component {
   
@@ -18,8 +19,8 @@ export class SignOutButton extends Component {
       <button
         type="button"
         onClick={this.handleSignOut}
+        className='sign-out-button'
       >
-        Sign Out
       </button>
     );
   }

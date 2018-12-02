@@ -53,7 +53,7 @@ class CompanyCard extends Component {
     } = this.state;
 
     return (
-      <div className='company-container'>
+      <div className='company-card'>
         <h1>{company}</h1>
         <p>culture: {culture}</p>
         <p>mission: {mission}</p>
