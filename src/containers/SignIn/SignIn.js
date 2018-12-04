@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './sign-in.css';
-import { auth, db } from '../../firebase';
+import fbConfig from '../../config/fbConfig';
 import { signIn } from '../../actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -33,9 +33,9 @@ export class SignIn extends Component {
     } = this.props;
 
     try {
-      const authUser = await auth.doSignInWithEmailAndPassword(email, password);
+      const authUser = await fbConfig.doSignInWithEmailAndPassword(email, password);
       const uid = authUser.user.uid;
-      const query = db.collection('users').doc(uid);
+      const query = fbConfig.collection('users').doc(uid);
       const user = await query.get();
       signIn(user.data())
       history.push('/')

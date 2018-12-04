@@ -1,0 +1,8 @@
+.company-card {
+  display: flex;
+  border: 1px solid #21484F;
+}
+
+p {
+  margin-right: 10px;
+}

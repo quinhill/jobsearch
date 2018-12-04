@@ -1,7 +1,7 @@
-const hasErrored = (state = false, action) => {
+const hasErrored = (state = null, action) => {
   switch (action.type) {
     case 'HAS_ERRORED':
-      return action.hasErrored;
+      return action.error;
     default:
       return state;
   }

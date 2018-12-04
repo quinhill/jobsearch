@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './research-form.css';
-import { storeResearch } from '../../actions';
-import { db } from '../../firebase';
+import { storeResearchThunk } from '../../thunks/storeResearchThunk';
 
 class ResearchForm extends Component {
   constructor() {
@@ -15,13 +14,7 @@ class ResearchForm extends Component {
       product: '',
       reference: '',
       acquaintances: '',
-      id: null
     }
-  }
-
-  componentDidMount() {
-    const id = this.props.companies.length;
-    this.setState({ id });
   }
 
   changeInput = (event) => {
@@ -29,27 +22,10 @@ class ResearchForm extends Component {
     this.setState({ [name]: value });
   }
 
-  submitForm = async (event) => {
+  submitForm = (event) => {
     event.preventDefault();
-    const {
-      company,
-      culture,
-      mission,
-      product,
-      reference,
-      acquaintances,
-      id
-    } = this.state;
-    const { uid, submitResearch } = this.props;
-    await db.collection('users').doc(uid).collection('research').doc(company).set({
-      culture,
-      mission,
-      product,
-      reference,
-      acquaintances,
-      id
-    });
-    submitResearch(this.state);
+    const { storeResearch } = this.props;
+    storeResearch({ ...this.state });
   }
 
   render() {
@@ -74,6 +50,7 @@ class ResearchForm extends Component {
             name='company'
             value={company}
             onChange={this.changeInput}
+            className='research-input'
             id='company'
           />
           <label htmlFor='culture'>culture</label>
@@ -81,6 +58,7 @@ class ResearchForm extends Component {
             name='culture'
             value={culture}
             onChange={this.changeInput}
+            className='research-input'
             id='culture'
           />
           <label htmlFor='mission'>mission</label>
@@ -88,6 +66,7 @@ class ResearchForm extends Component {
             name='mission'
             value={mission}
             onChange={this.changeInput}
+            className='research-input'
             id='mission'
           />
           <label htmlFor='product'>product</label>
@@ -95,6 +74,7 @@ class ResearchForm extends Component {
             name='product'
             value={product}
             onChange={this.changeInput}
+            className='research-input'
             id='product'
           />
           <label htmlFor='reference'>
@@ -104,6 +84,7 @@ class ResearchForm extends Component {
             name='reference'
             value={reference}
             onChange={this.changeInput}
+            className='research-input'
             id='reference'
           />
           <label htmlFor='acquaintances'>
@@ -113,10 +94,12 @@ class ResearchForm extends Component {
             name='acquaintances'
             value={acquaintances}
             onChange={this.changeInput}
+            className='research-input'
             id='acquaintances'
           />
           <button
             type='submit'
+            className='submit-button'
           >
             submit
           </button>
@@ -132,7 +115,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submitResearch: research => dispatch(storeResearch(research))
+  storeResearch: research => dispatch(storeResearchThunk(research))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (ResearchForm);

@@ -1,0 +1,23 @@
+.research-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.research-input {
+  margin: 5px;
+  width: 80%;
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid #c7c7c7;
+}
+
+.submit-button {
+  margin-top: 10px;
+  width: 100px;
+  height: 25px;
+  border-radius: 20px;
+  background-color: #21484F;
+  color: white;
+  font-size: 15px;
+}
