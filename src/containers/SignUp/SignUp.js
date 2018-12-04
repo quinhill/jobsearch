@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { auth, db } from '../../firebase';
+import fbConfig from '../../config/fbConfig';
 import { signUp } from '../../actions';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -34,7 +34,7 @@ class SignUp extends Component {
     } = this.props;
 
     try {
-      const authUser = await auth.doCreateUserWithEmailAndPassword(email, passwordOne);
+      const authUser = await fbConfig.doCreateUserWithEmailAndPassword(email, passwordOne);
       const uid = authUser.user.uid;
       const user = {
         first_name,
@@ -42,7 +42,7 @@ class SignUp extends Component {
         email,
         uid
       };
-      db.collection('users').doc(uid).set({ ...user });
+      fbConfig.collection('users').doc(uid).set({ ...user });
       signUp(user);
       history.push('/');
     }

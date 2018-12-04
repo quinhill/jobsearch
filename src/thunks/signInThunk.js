@@ -1,11 +1,11 @@
 import { isLoading, hasErrored, signIn } from '../actions';
-import { db } from '../firebase';
+import fbConfig from '../config/fbConfig';
 
 const signInThunk = (uid) => {
   return async (dispatch) => {
     try {
       dispatch(isLoading(true))
-      const userQuery = await db.collection('users').doc(uid);
+      const userQuery = await fbConfig.collection('users').doc(uid);
       const user = await userQuery.get();
       dispatch(isLoading(false))
       dispatch(hasErrored(null))

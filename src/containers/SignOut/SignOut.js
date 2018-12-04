@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { signOut } from '../../actions';
-import { auth } from '../../firebase';
-
+import fbConfig from '../../config/fbConfig';
 import './sign-out.css';
 
 export class SignOutButton extends Component {
   
   handleSignOut = () => {
-    auth.doSignOut();
+    fbConfig.doSignOut();
     this.props.signOut();
     this.props.history.push('/signin');
   }

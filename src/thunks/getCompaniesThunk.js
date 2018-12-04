@@ -1,16 +1,15 @@
 import { isLoading, hasErrored, getCompanies } from '../actions';
-import { db } from '../firebase';
-
+import fbConfig from '../config/fbConfig'
 
 const getCompaniesThunk = (uid) => {
   return async (dispatch) => {
     try {
       dispatch(isLoading(true))
-      const query = await db.collection('users').doc(uid).collection('research');
+      const query = await fbConfig.collection('users').doc(uid).collection('research');
       const research = await query.get();
       const companies = research.docs.map(company => company.id);
       const companyResponse = await companies.map(async id => (
-        await db.collection('users').doc(uid).collection('research').doc(id)
+        await fbConfig.collection('users').doc(uid).collection('research').doc(id)
       ));
       const companyQueries = await Promise.all(companyResponse);
       const companyData = await companyQueries.map(company => {

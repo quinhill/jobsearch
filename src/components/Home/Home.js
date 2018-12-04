@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ResearchForm from '../../containers/ResearchForm/ResearchForm';
 import SignOutButton from '../../containers/SignOut/SignOut';
-import { firebase } from '../../firebase';
+// import fbConfig from '../../config/fbConfig';
 import signInThunk from '../../thunks/signInThunk';
 import getCompaniesThunk from '../../thunks/getCompaniesThunk';
 import { withRouter } from 'react-router-dom';
@@ -12,25 +12,25 @@ import './home.css';
 
 class Home extends Component {
 
-  componentDidMount() {
-    const {
-      user,
-      signIn,
-      getCompanies,
-      history
-    } = this.props;
-    if (!user.uid) {
-      firebase.auth.onAuthStateChanged(async authUser => {
-        if (authUser) {
-          const { uid } = authUser;
-          await signIn(uid)
-          await getCompanies(uid);
-        } else {
-          history.push('/signup');
-        }
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const {
+  //     user,
+  //     signIn,
+  //     getCompanies,
+  //     history
+  //   } = this.props;
+  //   if (!user.uid) {
+  //     fbConfig.auth.onAuthStateChanged(async authUser => {
+  //       if (authUser) {
+  //         const { uid } = authUser;
+  //         await signIn(uid)
+  //         await getCompanies(uid);
+  //       } else {
+  //         history.push('/signup');
+  //       }
+  //     });
+  //   }
+  // }
   
   render() {
     return (

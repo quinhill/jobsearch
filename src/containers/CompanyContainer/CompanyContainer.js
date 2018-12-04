@@ -1,15 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CompanyCard from '../CompanyCard/CompanyCard';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 import './company-container.css';
 
 const CompanyContainer = props => {
-  const companyList = props.companies.map(company => {
-    return (
-      <CompanyCard {...company} />
-    )
-  })
+  let companyList;
+  if (props.companies) {
+    companyList = props.companies.map((company, index) => {
+      return (
+        <CompanyCard key={index} {...company} />
+      )
+    })
+  }
   return (
     <div className='companies-container'>
       {companyList}
@@ -18,9 +23,14 @@ const CompanyContainer = props => {
 }
 
 const mapStateToProps = state => ({
-  companies: state.companies
+  companies: state.firestore.ordered.research
 });
 
 
 
-export default connect(mapStateToProps)(CompanyContainer);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([
+    { collection: 'research' }
+  ])
+)(CompanyContainer);

@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import './research-form.css';
-import { storeResearch } from '../../actions';
-import { db } from '../../firebase';
+import { storeResearchThunk } from '../../thunks/storeResearchThunk';
 
 class ResearchForm extends Component {
   constructor() {
@@ -23,28 +22,10 @@ class ResearchForm extends Component {
     this.setState({ [name]: value });
   }
 
-  submitForm = async (event) => {
+  submitForm = (event) => {
     event.preventDefault();
-    const { companies } = this.props;
-    const {
-      company,
-      culture,
-      mission,
-      product,
-      reference,
-      acquaintances,
-    } = this.state;
-    const { uid, submitResearch } = this.props;
-    await db.collection('users').doc(uid).collection('research').doc(company).set({
-      name: company,
-      culture,
-      mission,
-      product,
-      reference,
-      acquaintances,
-      id: companies.length
-    });
-    submitResearch({ ...this.state, id: companies.length });
+    const { storeResearch } = this.props;
+    storeResearch({ ...this.state });
   }
 
   render() {
@@ -134,7 +115,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  submitResearch: research => dispatch(storeResearch(research))
+  storeResearch: research => dispatch(storeResearchThunk(research))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (ResearchForm);
