@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
-import Home from '../Home/Home';
-import SignUp from '../../containers/SignUp/SignUp';
-import SignIn from '../../containers/SignIn/SignIn';
-import { Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Navbar from '../../components/layout/Navbar';
+import Dashboard from '../dashboard/Dashboard';
+import CompanyDetails from '../companies/CompanyDetails';
+import SignIn from '../auth/SignIn';
+import SignUp from '../auth/SignUp';
+import CreateCompany from '../companies/CreateCompany';
 
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-       <Switch>
-         <Route exact path='/' component={Home} />
-         <Route path='/signup' component={SignUp} />
-         <Route path='/signin' component={SignIn} />
-       </Switch>
-      </div>
+      <BrowserRouter>
+        <div className='App'>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route path='/company/:id' component={CompanyDetails} />
+            <Route path='/signin' component={SignIn} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/createcompany' component={CreateCompany} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
