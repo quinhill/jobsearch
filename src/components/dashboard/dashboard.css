@@ -1,0 +1,9 @@
+.dashboard-container {
+  display: grid;
+  height: calc(100vh - 50px);
+  grid-template-columns: 50% 10% 40%;
+}
+
+.notifications {
+  grid-column: 3 / 4;
+}

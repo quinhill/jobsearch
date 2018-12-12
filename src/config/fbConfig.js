@@ -1,10 +1,9 @@
-import { GoogleKey } from '../APIKey';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: GoogleKey,
+  apiKey: 'AIzaSyD_SRYqQs5eOC5a2mIuFFGQsNZMx1RfPzU',
   authDomain: "jobsearch-8f1f2.firebaseapp.com",
   databaseURL: "https://jobsearch-8f1f2.firebaseio.com",
   projectId: "jobsearch-8f1f2",
